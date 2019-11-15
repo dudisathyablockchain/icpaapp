@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="css/central.css">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <script src="js/app1.js"></script>
+
+    <title>Central Government Portal</title>
+ </head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light nav2">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          HealthCareCenter
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="createclaim1.html">Add New Claim</a>
+          <a class="dropdown-item" href="patientdetails1.html">Check Patient Details</a>
+          <a class="dropdown-item" href="searchclaims1.html">Search Claims</a>
+        </div>
+      </li>
+        <li class="nav-item">
+            <a class="nav-link" href="central1.html">Central</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="state1.html">State</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="patient1.html">Patient</a>
+        </li>
+        </ul>
+    </div>
+</nav>
+<div>
+<div class="container">     
+            <div style="text-align: center;padding-top: 15px">
+                <h2 id="centralheading">Central Government Portal</h2>
+                <label class="centralshare">Total central share: &#8377;</label>
+                <label id="lblCentralShare"  class="centralshare"> </label>
+                <!-- <a href="/searchclai   ms1.html">Search Claims</a> -->
+            </div>
+            <div>
+               <hr>
+            </div>
+</div>  
+            <div>
+                <table id="tblCentral" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Claim ID</th>
+                            <th>State Address</th>
+                            <th>Patient Address</th>
+                            <th>Provider Address</th>
+                            <th>Created Date</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>        
+    </div>
+
+    <br>
+    <br>
+<div class="footer">
+    <h5>Copyright © Cluster IT Solutions</h5>
+</div>
+   </body>
+
+</html>

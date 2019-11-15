@@ -1,0 +1,122 @@
+
+    /* div.container {
+        width: 100%;
+        border: 1px solid gray;
+         /* background-image: url("../images/nhps12.jpg"); */
+       /* background-repeat: no-repeat, repeat;
+        background-size: contain; */
+        
+    } */
+
+    
+    header  {
+        color: white;
+        background-color: rgb(167, 158, 142);
+        text-align: center;
+    }
+
+    /* footer {
+        padding: 1em;
+        color: white;
+        background-color: green;
+        clear: left;
+        text-align: center;
+    } */
+
+    .footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #76223F;
+   color: white;
+   text-align: center;
+}
+/*     
+    article {
+        margin-left: 0px;
+        border-left: 1px solid gray;
+        padding: 1em;
+        overflow: hidden;
+        min-height: 400px;
+    }
+
+    .subheader {
+    text-align: center;
+    }
+
+    #tblCreateClaim input{
+        width : 200px;
+    }
+    .divtextTODO{
+        font-size: 15px
+    } */
+
+    body{
+        background-image: url("../images/nhps15.jpg");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        color: white;
+    }
+
+    .navbar{
+        background-color: black;
+    }
+
+    #pageheading{
+        text-align: center;
+        color:white;
+        float: left;
+    }
+
+    .nav2{
+        background-color: #bc8f8f;;
+    }
+
+    .nav-item{
+        color : white
+    }
+
+    .headertitle{
+        background:black;
+        color : white
+    }
+
+    .nav-item dropdown .dropdown-item{
+        font-weight : bold;
+        border : 1px solid red
+    }
+
+    .navbar-light .navbar-nav .nav-link{
+        color : white
+    }
+    
+
+  .affix {
+    top: 0;
+    width: 100%;
+  }
+
+  #homepagetext{
+      color: white;
+  }
+
+  .container { 
+    height: 200px;
+    position: relative;
+  }
+  
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .hompagecontainer{
+      margin-top : 10%;
+      font-weight : bold;
+      font-size: 2rem;
+  }
+

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Patient Portal</title>
+    <meta charset="utf-8"> 
+    <script src="js/web3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
+    <script src="js/common1.js"></script>
+    <link rel="stylesheet" href="css/state.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light nav2">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          HealthCareCenter
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="createclaim1.html">Add New Claim</a>
+          <a class="dropdown-item" href="patientdetails1.html">Check Patient Details</a>
+          <a class="dropdown-item" href="searchclaims1.html">Search Claims</a>
+        </div>
+      </li>
+        <li class="nav-item">
+            <a class="nav-link" href="central1.html">Central</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="state1.html">State</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="patient1.html">Patient</a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+<div>
+<div class="container">
+                <table class="statetable" border='0' width='600px' cellpadding='0' cellspacing='0' align='center'  style="margin-top : 10%">
+                    <tr>
+                        <td colspan="2"><center><h2 id="ccheading">Patient Portal</h2></center>    </td>
+                    </tr>
+                    <tr>
+                        <td align='center' class="text-white">Patient Account Address: </td>
+                        <td>  
+                             <input type="text" class="form-control" id="patientid" placeholder="Enter account address">
+                        </td>
+                        <td> &nbsp;</td>
+                        <td>
+                            <button class="btn btn-success" onclick="getpatientdetails()">Go</button>
+                        </td>
+                    <tr>
+                 </table>
+</div>
+<div>
+        <div id="divPatientDetails" style="display: none;">
+            <div class="divtext text-white">
+                Maximum Claim Amount :
+                &#8377;<label id="lblmaxClaimAmount"></label>
+                </br>
+                Amount Claimed :
+                &#8377;<label id="lblamountClaimed"></label>
+                </br>
+                Number Of Approved Claims:
+                <label id="lblnumberOfClaims"></label>
+            </div>
+                <div> 
+                        <hr>
+                    <stron class="text-white"g> All claims of patient:</strong>  </br>
+                    <hr>
+                </div>
+                <div>
+                   
+                    <table id="tblPatient" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Claim ID</th>
+                                <th>Provider Address</th>
+                                <th>Created Date</th>
+                                <th>Claim Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+ </div>
+ <div>  
+<div class="footer">
+    <h5>Copyright © Cluster IT Solutions</h5>
+</div>
+        <script>
+            function getAllApprovedClaimIDs(){
+                var dfd = jQuery.Deferred();
+                care.ClaimApproved({
+                    memberAddress: web3.eth.accounts[0]
+                }, {
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                }).get((error, eventResult) => { 
+                    var approvedClaimIds = [];
+                    if (error){
+                        dfd.reject( 'Error in ClaimApproved event handler: ' + error );
+                    }else {
+                        var arrLen = eventResult.length;
+                        for (var i = 0; i < arrLen; i++) {
+                            approvedClaimIds.push(parseInt(eventResult[i].args.claimID));
+                        }
+                        dfd.resolve( approvedClaimIds );
+                    }                     
+                });
+
+                return dfd.promise();
+            }
+            //end of getallapproveids
+            //starting of table pupulation
+            function pupulateTable(approvedClaimIds,patientAddress){
+                   //Start of patient claims population 
+                care.ClaimCreated({
+                    memberAddress: web3.eth.accounts[0]
+                }, {
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                }).get((error, eventResult) => {
+                    if (error)
+                        console.log('Error in ClaimCreated event handler: ' + error);
+                    else {
+                       // console.log('ClaimCreated indexed: ' + JSON.stringify(eventResult));
+                        var arrLength = eventResult.length;
+                        console.log(arrLength);
+
+                        var patientEventResult = $(eventResult)
+                            .filter(function (index, claim) {
+                                if ((claim.args.patientAddress).toLowerCase() === patientAddress.toLowerCase()) {
+                                    for (var i = 0; i < approvedClaimIds.length; i++) {
+                                        var claimIdOnCreate = parseInt(claim.args.claimID);
+                                        var claimsStatus = approvedClaimIds.indexOf(claimIdOnCreate) < 0 ?
+                                            "Created" : "Approved";
+                                    }
+                                    claim.args.claimStatus = claimsStatus;
+                                    return claim;
+                                }
+
+                            });
+                          console.log('Data to datatable patientEventResult1: ' + JSON.stringify(patientEventResult));
+                        console.log('Data to datatable patientEventResult: ::' + patientEventResult.length);
+                        //end of filter 
+                        var table = $("#tblPatient").DataTable({
+                            data: patientEventResult,
+                            "bDestroy": true,
+                            "columns": [{
+                                    "data": "args.claimID"
+                                },
+                                {
+                                    "data": "args.providerAddress"
+                                },
+                                {
+                                    "data": "args.timeStamp"
+                                },
+                                {
+                                    "data": "args.claimStatus"
+                                },
+                                {
+                                    "data": "args.claimStatus"
+                                }
+                            ],
+                            "columnDefs": [{
+                                    "targets": 4,
+                                    "render": function (claimStatus) {
+                                        console.log("claimStatus :" + claimStatus)
+                                        if (claimStatus == "Approved") {
+                                            return "No Action Required";
+                                        } else {
+                                            return "<button>Accept</button>";
+                                        }
+                                    }
+                                },
+                                {
+                                    "render": function (data) {
+                                        var newDate = new Date(data * 1000);
+                                        var dateStr = newDate.getDate() + '-' + newDate.getMonth() +
+                                            '-' + newDate.getFullYear();
+                                        return dateStr;
+
+                                    },
+                                    "targets": 2
+                                }
+                            ]
+                        });
+                        //end of datatable 
+                        $('#tblPatient tbody').on('click', 'button', function () {
+                            var selectedClaim = table.row($(this).parents('tr')).data(); 
+                            //TODO : ask for patient cofirmation before submit
+                            //start of approve claim
+                            var patient = care.approveClaim(parseInt(selectedClaim.args.claimID), {                              
+                                from: web3.eth.accounts[0]
+                            }, function (err, result) {
+                                if (!err) {
+                                    alert("Mining started for approving claim, this may take few minutes.");
+                                } else {
+                                    console.error(err);
+                                }
+                            });
+                            //end of approveClaim
+                        });
+                    }
+                });
+                //end of patient claims population 
+            }
+            //end of table population
+            //being called in button click
+            function getpatientdetails() {
+                var patientAddress = $("#patientid").val();
+
+                var patient = care.getPatientDetails(patientAddress, {
+                    from: web3.eth.accounts[0]
+                }, function (err, result) {
+                    if (!err) {
+                        console.log("Patient Details for  " + patientAddress + " is :" + result);
+                        $("#divPatientDetails").show();
+
+                        $('#lblmaxClaimAmount').text(result[0]);
+                        $('#lblamountClaimed').text(result[1]);
+                        $('#lblnumberOfClaims').text(result[2]);
+                        return false;
+                    } else {
+                        console.error(err);
+                    }
+                });      
+                $.when( 
+                    getAllApprovedClaimIDs()).then(
+                function( approvedClaimIds ) {
+                    console.log("when ----------resolve --1  " + approvedClaimIds);
+                    pupulateTable(approvedClaimIds,patientAddress);
+                },
+                function(result) {
+                    console.log("when ----------resolve --2  ");                   
+                },
+                function(result) {
+                    console.log("when ----------resolve  --3");                   
+                }
+                );
+                return false;
+            }
+        </script>
+</body>
+
+</html>

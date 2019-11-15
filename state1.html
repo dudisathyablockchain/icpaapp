@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>State Government Portal</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"><link rel="stylesheet" href="css/central.css">
+    <link rel="stylesheet" href="css/state.css">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="js/state1.js"></script>   
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light nav2">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          HealthCareCenter
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="createclaim1.html">Add New Claim</a>
+          <a class="dropdown-item" href="patientdetails1.html">Check Patient Details</a>
+          <a class="dropdown-item" href="searchclaims1.html">Search Claims</a>
+        </div>
+      </li>
+        <li class="nav-item">
+            <a class="nav-link" href="central1.html">Central</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="state1.html">State</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="patient1.html">Patient</a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+<div>
+    <div>
+                <table class="statetable" border='0' width='600px' cellpadding='0' cellspacing='0' align='center'   style="margin-top : 10%">
+                    <tr>
+                        <td class="text-center" colspan="2"><h2 id="ccheading">State Claim Details</h2></td>
+				    </tr>
+                    <tr>
+                        <td  class="text-white">State Account Address : </td>
+                        <td>
+                            <input type="text" id="stateaddress" placeholder="Enter your state account address">
+                        <td>
+                        <td> &nbsp;</td>
+                        <td>
+                            <button class="btn btn-success" id="btnStateClaim" type="button"> GO </button>
+                        </td>
+                    </tr>
+                </table>
+    </div>
+    <div id="divClaimDetailsOfState" style="display: none;">
+                <hr>
+                <div class="text-center text-white">
+                    <label> Total state share :</label>
+                    &#8377;<label id="lblStateTotShare"> </label>
+                </div>
+                <table id="tblState" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Claim ID</th>
+                            <th>State Address</th>
+                            <th>Patient Address</th>
+                            <th>Provider Address</th>
+                            <th>Created Date</th>
+                        </tr>
+                    </thead>
+                </table>
+     </div>
+</div>
+
+<div class="footer">
+    <h5>Copyright © Cluster IT Solutions</h5>
+</div>
+
+</div>
+    <script>
+        function getstatetotalshare() {
+            var stateAddress = $('#stateaddress').val();
+            console.log(stateAddress);
+            var claim = care.getSateTotalShare(stateAddress, {
+                from: web3.eth.accounts[0]
+            }, function (err, result) {
+                if (!err) {
+                    console.log("The total state share is:" + result);
+                    $("#lblStateTotShare").text(result.c[0]);
+                } else {
+                    console.error(err);
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

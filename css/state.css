@@ -1,0 +1,91 @@
+#ccheading{
+    color : white;
+    font-weight : bold;
+}
+
+body{
+    background-image: url("../images/nhps16.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #76223F;
+    color: white;
+    text-align: center;
+ }
+
+ input[type=text], select {
+    width: 100%;
+    padding: 5px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 100%;
+    background-color: rgb(78, 85, 78);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+
+  table tr td{
+      font-weight : bold;
+  }
+
+#ccbutton{
+    width : 100%
+}
+
+form{
+    margin-top : 10%; 
+}
+
+.statetable{
+}
+
+
+table.dataTable th{
+    color : white
+}
+
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color : white
+}
+
+
+
+.navbar{
+    background-color: black;
+  }
+  
+  .nav2{
+    background-color: #bc8f8f;;
+  }
+  
+  .nav-item{
+    color : white
+  }
+  
+  .headertitle{
+    background:black;
+    color : white
+  }
+  

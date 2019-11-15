@@ -1,0 +1,56 @@
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #76223F;
+    color: white;
+    text-align: center;
+ }
+
+
+ body{
+    background-image: url("../images/nhps16.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+#centralheading{
+    color : white;
+}
+
+.centralshare{
+    color : white   
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color : white
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    color : red;
+}
+
+table.dataTable th{
+    color : white
+}
+
+
+.navbar{
+    background-color: black;
+  }
+  
+  .nav2{
+    background-color: #bc8f8f;;
+  }
+  
+  .nav-item{
+    color : white
+  }
+  
+  .headertitle{
+    background:black;
+    color : white
+  }
+  

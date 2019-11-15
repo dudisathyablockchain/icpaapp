@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ayushmaan Bharath( National Health Protection Scheme )</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/web3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/common1.js"></script>
+    <link rel="stylesheet" href="css/createclaim.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light nav2">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><b>
+                            HealthCareCenter</b>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="createclaim1.html"><b>Add New Claim</b></a>
+                            <a class="dropdown-item" href="patientdetails1.html"><b>Check Patient Details</b></a>
+                            <a class="dropdown-item" href="searchclaims1.html"><b>Search Claims</b></a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="central1.html"><b>Central</b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="state1.html"><b>State</b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="patient1.html"><b>Patient</b></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+<div class="subpages">	
+	<form>
+			<table id="tblCreateClaim" border='0' width='600px' cellpadding='0' cellspacing='0' align='center'>
+				<tr>
+					<td class="text-center" colspan="2"><h2 id="ccheading">Patient Details</h2></td>
+				</tr>
+				<tr>
+					<td>Patient Account Address:</td>
+					<td>
+						<input type="text" value="" id="patientid" placeholder="Enter patient account address..." >
+                        <button class="btn btn-success"  onclick="getpatientdetails()"> Go </button>
+					</td>
+				</tr>
+			</table>
+	</form>
+</div>
+ <div id="divPatientDetails" style="display: none;">
+                    <hr>
+
+                    <table border='0' width='480px' cellpadding='0' cellspacing='0' align='center'>
+                        <td align='center'> Maximum Claim Amount :</td>
+                        <td>
+                            &#8377;<label id="lblmaxClaimAmount"></label>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td align='center'> Amount Claimed :</td>
+                            <td>
+                                &#8377;<label id="lblamountClaimed"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align='center'> Number Of Claims:</td>
+                            <td>
+                                <label id="lblnumberOfClaims"></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+<div class="footer">
+    <h5>Copyright © Cluster IT Solutions</h5>
+</div>
+<script>
+    function getpatientdetails() {
+            var patientID = $("#patientid").val();
+
+            var patient = care.getPatientDetails(patientID, {
+                from: web3.eth.accounts[0]
+            }, function (err, result) {
+                if (!err) {
+                    console.log("Patient Details for  " + patientID + " is :" + result);
+                    $("#divPatientDetails").show();
+
+                    $('#lblmaxClaimAmount').text(result[0]);
+                    $('#lblamountClaimed').text(result[1]);
+                    $('#lblnumberOfClaims').text(result[2]);
+                    return false;
+                } else {
+                    console.error(err);
+                }
+            });
+            return false;
+        }
+</script>
+</body>
+</html>
